@@ -4,6 +4,17 @@ import numpy as np
 import joblib
 from sklearn.metrics.pairwise import cosine_similarity
 
+import os
+
+
+# Load models safely
+if os.path.exists("kmeans_model.pkl") and os.path.exists("rfm_scaler.pkl"):
+    kmeans = joblib.load("kmeans_model.pkl")
+    scaler = joblib.load("rfm_scaler.pkl")
+else:
+    st.error("Model files not found. Please make sure 'kmeans_model.pkl' and 'rfm_scaler.pkl' are in the repo.")
+    st.stop()
+
 # Load models and data
 @st.cache_data
 def load_data():
